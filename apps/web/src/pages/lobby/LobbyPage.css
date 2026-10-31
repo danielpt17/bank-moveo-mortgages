@@ -1,0 +1,73 @@
+/* ---------- Lobby layout ---------- */
+.lobby {
+  padding-block: 52px var(--space-48); /* Figma mobile ≈ 52 from the nav row to the title */
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 1024px) {
+  .lobby {
+    padding-top: 70px; /* Figma: 70px from the nav bar to the page title */
+  }
+}
+
+/* Desktop gutters: 40px (same as the header) until the Figma 1920 proportions apply at 1600 */
+@media (min-width: 1024px) {
+  .lobby {
+    padding-inline: 40px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .lobby {
+    padding-inline: 120px; /* Figma */
+  }
+}
+
+.lobby__title {
+  margin-bottom: var(--space-32);
+}
+
+/* Main column + aside. Stacked below 1024px, side by side above it. */
+.lobby__columns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+@media (min-width: 1024px) {
+  .lobby__columns {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-24);
+  }
+
+  .lobby__aside {
+    flex: none;
+    width: 320px; /* no Figma frame between mobile and 1920; same as the flow side card */
+  }
+}
+
+@media (min-width: 1600px) {
+  .lobby__columns {
+    gap: 90px; /* Figma */
+  }
+
+  .lobby__aside {
+    width: 547px; /* Figma */
+  }
+}
+
+/* Flex columns: cards stretch to the column width and can never push it wider */
+.lobby__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.lobby__aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}

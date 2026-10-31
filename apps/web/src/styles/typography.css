@@ -1,0 +1,70 @@
+/* ---------- Typography ---------- */
+/* Classes named after the Figma font/size variables. */
+.text-xl {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.text-l {
+  font-size: var(--font-size-l);
+  font-weight: 500;
+  line-height: 100%;
+}
+
+.text-m {
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: 24px;
+}
+
+/* Same size as text-m, Regular weight. */
+.text-m-regular {
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.text-s {
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* Same size as text-s, Medium weight (Figma uses S in both weights). */
+.text-s-medium {
+  font-size: var(--font-size-s);
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.text-xs {
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  line-height: 16px;
+}
+
+/* Same size as text-xs, Medium weight. */
+.text-xs-medium {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 16px;
+}
+
+
+
+.num {
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: isolate;
+  direction: ltr;
+  display: inline-block;
+}
+
+.text-strong {
+  font-weight: 600;
+}
+
+/* Colour modifier, composable with any text-* class (Figma #747474) */
+.text-secondary {
+  color: var(--text-secondary);
+}

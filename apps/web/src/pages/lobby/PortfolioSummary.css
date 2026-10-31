@@ -1,0 +1,53 @@
+/* Portfolio summary */
+.summary__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-20);
+}
+
+.summary__updated {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--text-secondary);
+  /* Figma #747474 */
+}
+
+.summary__figures {
+  display: grid;
+  gap: var(--space-12);
+  margin-bottom: var(--space-20);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+
+  /* Figma: the four pairs sit in one row at their natural widths, spread across the card */
+  .summary__figures {
+    display: flex;
+    flex-wrap: wrap; /* two rows when the four pairs don't fit */
+    justify-content: space-between;
+    gap: var(--space-24);
+  }
+}
+
+/* Label + value pair; type comes from the text-* classes in the markup. */
+.summary__item {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.summary__notes {
+  margin-top: var(--space-4);
+  font-size: var(--fs-caption);
+  color: var(--text-muted);
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Links inside running text must not rely on colour alone (axe link-in-text-block) */
+.summary__notes a {
+  text-decoration: underline;
+}

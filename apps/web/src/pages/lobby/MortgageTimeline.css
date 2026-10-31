@@ -1,0 +1,193 @@
+/* Timeline – sizes eyeballed from the Figma card, to be confirmed in the inspector */
+.timeline__title {
+  justify-content: center;
+  margin-bottom: var(--space-24);
+}
+
+.timeline {
+  display: flex;
+  gap: var(--space-16);
+  padding-top: 56px;
+  /* room for the "you are here" pill above the bars */
+}
+
+/* Property labels: one block per property, as tall as its bars, text next to the bars */
+.timeline__labels {
+  flex: none;
+  width: 115px;
+  display: grid;
+  gap: var(--space-16);
+  /* same as the group gap below */
+}
+
+.timeline__label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: start;
+  font-size: var(--font-size-xs);
+  line-height: 16px;
+  color: var(--text-muted);
+}
+
+.timeline__plot {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Inset by half a year label (32px / 2) so the bars' 0% and 100% align with the label centres */
+.timeline__track {
+  position: relative;
+  margin-inline: 16px;
+}
+
+.timeline__rows {
+  display: grid;
+  gap: var(--space-16);
+  /* between properties */
+}
+
+.timeline__row {
+  position: relative;
+  height: 32px;
+  /* one bar per mortgage */
+}
+
+/* Each bar is a button (hover/focus → tooltip). Full row height = comfortable target. */
+.timeline__bar {
+  position: absolute;
+  top: 0;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.timeline__bar-soft,
+.timeline__bar-strong {
+  position: absolute;
+  top: 11px;
+  left: 0;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.timeline__bar-soft {
+  width: 100%;
+}
+
+/* Faded preview of the next hidden bar */
+.timeline__row--preview {
+  opacity: 0.4;
+}
+
+.timeline__group--blue .timeline__bar-soft {
+  background: var(--chart-blue-soft);
+}
+
+.timeline__group--blue .timeline__bar-strong {
+  background: var(--chart-blue);
+}
+
+.timeline__group--coral .timeline__bar-soft {
+  background: var(--chart-coral-soft);
+}
+
+.timeline__group--coral .timeline__bar-strong {
+  background: var(--chart-coral);
+}
+
+/* Tooltip above the bar's end, as in Figma */
+.timeline__tip {
+  position: absolute;
+  bottom: calc(100% - 4px);
+  z-index: 10;
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  max-width: 260px;
+  padding: var(--space-12) var(--space-16);
+  border: 1px solid var(--secondary-200);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  box-shadow: var(--shadow-float);
+  color: var(--text-primary);
+  font-size: var(--font-size-xs);
+  line-height: 16px;
+  text-align: start;
+  pointer-events: none;
+}
+
+.timeline__tip-name {
+  font-weight: 500;
+}
+
+.timeline__tip-label {
+  margin-top: var(--space-4);
+  color: var(--text-muted);
+}
+
+/* "אתה כאן" pill, centred on today's x */
+.timeline__now {
+  position: absolute;
+  top: -56px;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  padding: 6px 20px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: var(--white);
+  color: var(--text-primary);
+  font-size: var(--font-size-xs);
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.timeline__now-title {
+  font-weight: 600;
+}
+
+.timeline__now-date {
+  color: var(--text-muted);
+}
+
+.timeline__now-line {
+  position: absolute;
+  top: -12px;
+  bottom: 0;
+  width: 1px;
+  background: var(--text-secondary);
+}
+
+/* Year labels spread evenly; the years themselves are evenly spaced, so this matches the bars */
+.timeline__axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-16);
+}
+
+.timeline__year {
+  width: 32px;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  line-height: 16px;
+  color: var(--text-muted);
+}
+
+/* "הרחבה לכל התיקים" */
+.timeline__expand {
+  text-align: center;
+  margin-top: var(--space-24);
+}
+
+.timeline__expand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}

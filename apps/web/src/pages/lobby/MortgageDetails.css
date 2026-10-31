@@ -1,0 +1,197 @@
+/* Mortgage details */
+.details__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+.details__tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+/* Filter select, as in Figma: white, 1px border, 8px radius */
+.details__filter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 var(--space-12);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+}
+
+.details__filter select {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.view-toggle__group {
+  display: inline-flex;
+  gap: var(--space-8);
+}
+
+/* Inactive: bare icon; active: teal square (Figma) */
+.view-toggle__btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.view-toggle__btn[aria-pressed='true'] {
+  background: var(--primary-600);
+  color: var(--white);
+}
+
+.property+.property {
+  margin-top: var(--space-32);
+}
+
+.property__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+/* Per-property totals: label + value pairs spread across the row (Figma) */
+.property__summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-8) var(--space-32);
+  margin-bottom: var(--space-16);
+}
+
+.property__stat {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: var(--space-8);
+  align-items: baseline;
+}
+
+.property__stat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* The link sits on its own line under the pair */
+.property__stat-link {
+  grid-column: 1 / -1;
+}
+
+.mortgages {
+  display: grid;
+  gap: var(--space-12);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .mortgages--grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1600px) {
+  .mortgages--grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* Figma: three cards per row at 1920 */
+  }
+}
+
+.mcard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  display: grid;
+  gap: var(--space-12);
+  padding: var(--space-12);
+}
+
+.mcard--delayed {
+  border-color: var(--accent-400);
+}
+
+.mcard__head {
+  background: var(--primary-50);
+  border-radius: var(--radius-sm);
+  padding: var(--space-12);
+  display: grid;
+  gap: 2px;
+}
+
+.mcard__head .text-xs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+/* The delay info button keeps its 24px target but doesn't make this 16px row taller */
+.mcard__head .tip-btn {
+  margin-block: -4px;
+}
+
+.mcard__rows {
+  display: grid;
+  gap: var(--space-14);
+}
+
+.mcard__rows div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-8);
+  align-items: baseline;
+}
+
+
+
+.mcard__rows dd {
+  display: flex;
+  gap: var(--space-8);
+  align-items: baseline;
+}
+
+
+
+.mcard__footer {
+  display: flex;
+  justify-content: center;
+}
+
+.mortgages--list .mcard {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .mortgages--list .mcard {
+    grid-template-columns: 1fr 1.4fr auto;
+    align-items: center;
+  }
+
+  .mortgages--list .mcard__footer {
+    justify-content: flex-end;
+  }
+}

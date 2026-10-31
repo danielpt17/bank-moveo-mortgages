@@ -1,0 +1,262 @@
+/* ---------- Header ---------- */
+.header {
+  position: relative;
+  z-index: 1;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Mobile header row (Figma mobile lobby): bell + account pill, transparent over the wave */
+.header__mobile {
+  display: none;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-12);
+}
+
+.header__bell {
+  flex: none;
+  width: 35px; /* same height as the pill (Figma) */
+  height: 35px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.header__pill {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 35px; /* Figma mobile pill */
+  padding: 6px 16px; /* Figma: 6px; sides = Row/S, value to confirm */
+  border: 1px solid transparent; /* Figma: 1px stroke, colour to confirm */
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* flex: 1 pushes the chevron to the end; a button centres text by default, so align it to the start */
+.header__pill-text {
+  flex: 1;
+  text-align: start;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+.header__row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  /* logo → account chip */
+  height: 96px;
+  /* + 1px border = 97, the same on the lobby and the flow screens */
+  padding: 12px 40px;
+}
+
+.header__logo img {
+  height: 48px;
+  width: auto;
+}
+
+.header__account {
+  display: flex;
+  width: 400px;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-pill);
+  background: var(--primary-50);
+}
+
+.header__account-label {
+  display: block;
+  color: var(--primary-600);
+}
+
+.header__account .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.header__tools {
+  display: none;
+  gap: 8px;
+  margin-inline-start: auto;
+}
+
+.header__tools .icon-btn {
+  width: 44px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+.header__divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  align-self: center;
+}
+
+.icon-circled {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+}
+
+@media (min-width: 1024px) {
+  .header__tools {
+    display: flex;
+  }
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: var(--surface);
+}
+
+/* ---------- Flow header (Figma): account box · language · user, 24px apart, no chip ---------- */
+.header--flow .header__tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.header__select {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-width: 243px;
+  /* Figma */
+  height: 36px;
+  padding: 0 var(--space-12);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.header__select-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+}
+
+/* The chevron sits at the far end of the box */
+.header__select svg {
+  margin-inline-start: auto;
+}
+
+.header__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.header__user {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.header__user-icon {
+  position: relative;
+  display: inline-grid;
+  width: 28px;
+  height: 28px;
+}
+
+/* Coral "+2" badge on the bottom-left of the user icon */
+.header__user-badge {
+  position: absolute;
+  bottom: -4px;
+  left: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 3px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-600);
+  color: var(--text-primary); /* white on coral is 2.7:1 at 10px – fails AA (axe color-contrast) */
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+  direction: ltr;
+}
+
+/* Mobile (< 1024): the desktop row gives way to the bell + pill row. Last so it wins the cascade. */
+@media (max-width: 1023px) {
+  .header {
+    background: transparent;
+    border-bottom: 0;
+  }
+
+  .header__mobile {
+    display: flex;
+  }
+
+  /* Lobby: glass pill and bell over the wave (Figma: near-transparent white, inset highlights, blur) */
+  .header--lobby .header__bell,
+  .header--lobby .header__pill {
+    background: #ffffff33; /* Figma? near transparent */
+    box-shadow:
+      1px 1px 4px 0 #ffffff99 inset,
+      -1px -1px 1px 0 #ffffff40 inset,
+      1px 1px 1px 0 #ffffff66 inset,
+      -1px -1px 1px 0 #ffffff66 inset;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .header__row {
+    display: none;
+  }
+}
+
+/* Flow screens on mobile: no wave, white bar, peach bell and pill (Figma) */
+@media (max-width: 1023px) {
+  .header--flow {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 0;
+    border-radius: 0 0 24px 24px; /* Figma */
+    box-shadow: 0 4px 9px 0 #00000008; /* Figma */
+  }
+
+  .header--flow .header__bell,
+  .header--flow .header__pill {
+    background: #feebe84d;
+  }
+}

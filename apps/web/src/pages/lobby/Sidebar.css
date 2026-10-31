@@ -1,0 +1,193 @@
+/* Side cards – sizes read off the Figma sidebar, confirm in the inspector */
+/* Figma: the side cards use 20px padding (main cards use the shared 24px) */
+.banker,
+.tip {
+  padding: var(--space-20);
+}
+
+.banker {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.banker__who {
+  display: grid;
+  grid-template-columns: 95px minmax(0, 1fr);
+  grid-template-areas:
+    'avatar name'
+    'avatar role'
+    'actions actions';
+  /* the avatar's 95px height goes to the role row, so the role sits right under the name */
+  grid-template-rows: auto 1fr auto;
+  column-gap: var(--space-16);
+  align-items: start;
+}
+
+/* Figma (1920): the actions sit beside the avatar, under the role */
+@media (min-width: 1600px) {
+  .banker__who {
+    grid-template-areas:
+      'avatar name'
+      'avatar role'
+      'avatar actions';
+    grid-template-rows: auto auto 1fr;
+  }
+}
+
+.banker__avatar {
+  grid-area: avatar;
+  width: 95px; /* Figma */
+  height: 95px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-600);
+  object-fit: cover;
+}
+
+.banker__name {
+  grid-area: name;
+  margin-bottom: var(--space-4);
+}
+
+.banker__role {
+  grid-area: role;
+}
+
+
+
+/* Three links spread across the row, under the name */
+.banker__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-32);
+  margin-top: var(--space-16);
+}
+
+/* Full-width grey pill */
+.banker__phone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 40px;
+  padding: 0 var(--space-16);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+}
+
+.banker__phone a {
+  color: inherit;
+  margin-inline-end: var(--space-4);
+  /* number → WhatsApp icon */
+}
+
+.banker__updates {
+  padding-bottom: 40px;
+}
+
+/* Two equal underline tabs */
+.side-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.side-tabs button {
+  padding: var(--space-8) 0 var(--space-12);
+  margin-bottom: -1px;
+  /* the active underline sits on the divider */
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.side-tabs button[aria-selected='true'] {
+  color: var(--primary-600);
+  border-bottom-color: var(--primary-600);
+}
+
+/* Update rows: icon + text at the start, link at the end */
+.updates li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 52px;
+  border-bottom: 1px solid var(--border);
+}
+
+.updates li>span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.banker__all {
+  margin-top: var(--space-24);
+  text-align: center;
+}
+
+.tip {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.tip__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tip__title {
+  display: flex;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 15px;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.tip__pager {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--text-muted);
+}
+
+.tip__pager svg {
+  color: var(--primary-600);
+}
+
+.tip__body {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: start;
+}
+
+.tip__text {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.tip__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  /* at the inline end, under the illustration */
+  gap: var(--space-12);
+}
+
+.tip__art {
+  width: 104px;
+  /* Figma ≈ 104 */
+  height: 104px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-100);
+  display: grid;
+  place-items: center;
+  color: var(--accent-600);
+}

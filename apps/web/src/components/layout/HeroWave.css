@@ -1,0 +1,38 @@
+/* Coral wave band under the header */
+/*
+ * The Figma wave (public/wave.png, 1920×300) is drawn from the page top, behind a 92px header
+ * (92 + 208 band = 300). On desktop the image is never scaled: it stays 1920px wide, is shifted
+ * up by 92px and cropped at the sides, so the curve looks the same at every width ≥ 1024.
+ * Below 1024 (mobile layout) the mobile export is used.
+ */
+.hero {
+  position: relative;
+  height: 208px;
+  background: url('/wave.png') center -92px / 1920px 300px no-repeat;
+}
+
+/* Mobile: the Figma mobile wave export (public/wave-mobile.png, 375×172, transparent below the curve)
+   from the page top, stretched to the viewport width so the curve keeps its shape. The coral ends
+   around the middle of the account pill; the phone's status bar above it is tinted via theme-color. */
+@media (max-width: 1023px) {
+  .hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    aspect-ratio: 375 / 172;
+    background: url('/wave-mobile.png') center top / 100% auto no-repeat;
+  }
+}
+
+/* Flow screens: a shorter band, same image placement */
+.hero--tall {
+  height: 160px;
+}
+
+@media (max-width: 1023px) {
+  .hero--tall {
+    display: none; /* Figma mobile flow: no wave */
+  }
+}

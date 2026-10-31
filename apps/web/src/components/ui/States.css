@@ -1,0 +1,23 @@
+/* Loading / error */
+.state {
+  display: grid;
+  gap: var(--space-12);
+  justify-items: center;
+  padding: var(--space-48) var(--space-16);
+  text-align: center;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-200);
+  border-top-color: var(--primary-600);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

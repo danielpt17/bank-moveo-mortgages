@@ -1,0 +1,105 @@
+.nav {
+  position: relative;
+  z-index: 1;
+  padding-inline: var(--gutter);
+  margin-top: calc(-110px + 16px);
+  /* 16px of coral above the bar on small screens */
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    padding-inline: 44px; /* Figma */
+    margin-top: calc(-208px + 22px);
+    /* 24px of coral above the bar, per Figma */
+  }
+}
+
+.nav__list {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+
+  height: 70px;
+  /* Below ~1260px the 12 items don't fit: the row scrolls (swipe / shift-wheel / keyboard focus), no scrollbar */
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  padding: 0 var(--space-16);
+}
+
+.nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__link {
+  min-width: 80px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 100%;
+  white-space: nowrap;
+  padding: 0 10px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: var(--fw-body);
+  cursor: pointer;
+}
+
+.nav__link:hover {
+  text-decoration: none;
+  color: var(--primary-600);
+}
+
+.nav__link[aria-current='page'] {
+  color: var(--primary-600);
+  font-weight: 500;
+  border-bottom-color: var(--primary-600);
+}
+
+/* "מועדפים" sits apart from the menu items, at the far end of the bar. */
+.nav__list>li:last-child {
+  margin-inline-start: auto;
+}
+
+/* Below the 1440 container the 12 items no longer fit at 16px; step down instead of scrolling. */
+@media (max-width: 1499px) {
+  .nav__link {
+    font-size: var(--fs-caption);
+    padding: 0 var(--space-8);
+  }
+}
+
+/* Mobile (Figma): a plain text row over the wave, swipeable, no white bar and no chevrons */
+@media (max-width: 1023px) {
+  .nav {
+    margin-top: 0;
+    padding-inline: 0;
+  }
+
+  .nav__list {
+    height: 32px;
+    gap: var(--space-24);
+    padding: 0 var(--space-16);
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .nav__link {
+    min-width: 0;
+    padding: 0;
+  }
+
+  .nav__link svg {
+    display: none;
+  }
+
+  .nav__list > li:last-child {
+    margin-inline-start: 0;
+  }
+}

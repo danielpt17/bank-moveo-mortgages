@@ -1,0 +1,31 @@
+/* ---------- Cards ---------- */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-16);
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: var(--space-32);
+  }
+}
+
+.card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-24);
+}
+
+/* Pale coral circle behind a section icon (the bulb) – Figma #FDDFDA */
+.icon-halo {
+  display: inline-grid;
+  place-items: center;
+  width: 40px; /* confirm in Figma */
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent-150);
+  flex: none;
+}

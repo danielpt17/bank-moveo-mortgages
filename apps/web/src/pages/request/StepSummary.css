@@ -1,0 +1,75 @@
+/* ---------- Step 3 – summary ----------
+   Figma spacing: heading→text 12, intro→tables 48, table→table 24, divider 32 above and below */
+.summary__intro {
+  display: grid;
+  gap: var(--space-12);
+  margin-bottom: var(--space-48);
+}
+
+.summary__items {
+  display: grid;
+  gap: var(--space-24);
+}
+
+.summary .terms {
+  margin-top: var(--space-32);
+  padding-top: var(--space-32);
+  border-top: 1px solid var(--border);
+}
+
+.summary-text {
+  display: grid;
+  gap: var(--space-12);
+  /* Figma */
+}
+
+.summary-text__phone {
+  display: grid;
+  gap: var(--space-8);
+  /* Figma */
+}
+
+/* Figma: the checkbox row sits 12px under the number; 24px keeps the WCAG minimum target */
+.summary-text .choice {
+  min-height: 24px;
+}
+
+/* Line break that exists only in the desktop frame */
+.br-desktop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .br-desktop {
+    display: inline;
+  }
+}
+
+.terms {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.terms__note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Figma: full terms text in a bordered box, no inner scroll */
+.terms__box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-16);
+  font-size: var(--font-size-s);
+  line-height: 20px;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.terms__box ul {
+  list-style: disc;
+  padding-inline-start: var(--space-24);
+  display: grid;
+  gap: var(--space-8);
+}

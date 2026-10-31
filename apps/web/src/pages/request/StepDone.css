@@ -1,0 +1,63 @@
+/* ---------- Step 4 – done ---------- */
+.done__hero {
+  text-align: center;
+  display: grid;
+  gap: var(--space-32);
+  justify-items: center;
+  padding-block: var(--space-32);
+}
+
+/* Figma: heading and text are one block, 8px apart */
+.done__text {
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* Figma illustration (public/illustration-done.png, 210×110) */
+.done__icon {
+  width: 210px;
+  height: 110px;
+}
+
+/* Two label/value pairs in one row at every width */
+.done__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-32); /* Figma? between the pairs */
+}
+
+/* Type comes from the text-* classes in the markup: dt S secondary, dd M */
+.done__meta > div {
+  display: grid;
+  gap: var(--space-8); /* Figma: label → value */
+  justify-items: start; /* an LTR .num would otherwise stretch and sit on the left */
+}
+
+.done__tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.done__tools div {
+  display: flex;
+  gap: var(--space-16);
+}
+
+/* Summary card: 32px between its blocks (Figma), 16px under the hero */
+.done__summary {
+  display: grid;
+  gap: var(--space-32);
+  margin-top: var(--space-16);
+}
+
+/* Terms under the summary card (Figma): bullets only, no box */
+.done__terms {
+  list-style: disc;
+  padding-inline-start: var(--space-24);
+  margin-top: var(--space-24); /* Figma? */
+  display: grid;
+  gap: var(--space-8);
+}

@@ -1,0 +1,35 @@
+/* Tooltip (click/focus toggled, hover is a bonus) */
+.tip-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.tip-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0; /* the UA button padding would squeeze the 16px icon */
+  border-radius: 50%;
+  border: 0;
+  background: transparent;
+  color: var(--primary-600);
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.tip-bubble {
+  position: absolute;
+  top: calc(100% + 6px);
+  inset-inline-end: 0;
+  z-index: 10;
+  width: max-content;
+  max-width: min(280px, 80vw);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-float);
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--fs-caption);
+  color: var(--text-primary);
+  text-align: start;
+}

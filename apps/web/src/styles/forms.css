@@ -1,0 +1,98 @@
+/* ---------- Form controls ---------- */
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.choice input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--primary-600);
+  cursor: pointer;
+  flex: none;
+}
+
+.choice input:disabled,
+.choice input:disabled+span {
+  cursor: not-allowed;
+  color: var(--text-muted);
+}
+
+/* Figma (step 2 chips): grey box, ≈136×36, radio + text */
+.choice--boxed {
+  min-height: 36px;
+  min-width: 136px; /* Figma? */
+  padding: 0 var(--space-12);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid transparent;
+}
+
+.choice--boxed input {
+  width: 18px;
+  height: 18px;
+}
+
+.choice--boxed:has(input:checked) {
+  background: var(--primary-100);
+  border-color: var(--primary-400);
+}
+
+.choice--boxed:has(input:focus-visible) {
+  box-shadow: var(--focus-ring);
+}
+
+.choice--boxed input:focus-visible {
+  box-shadow: none;
+}
+
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  color: var(--error-strong);
+  font-size: var(--fs-caption);
+  margin-top: var(--space-8);
+}
+
+.alert {
+  display: flex;
+  gap: var(--space-12);
+  align-items: flex-start;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-md);
+  border: 1px solid;
+}
+
+.alert--error {
+  background: #fff5f5;
+  border-color: #f3c4c4;
+  color: var(--error-strong);
+}
+
+.alert--info {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+  color: var(--primary-700);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 2px var(--space-8);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  background: var(--accent-100);
+  color: #8a2f21;
+}
+
+.badge--teal {
+  background: var(--primary-100);
+  color: var(--primary-700);
+}

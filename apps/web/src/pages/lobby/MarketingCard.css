@@ -1,0 +1,66 @@
+/* "תוכן שיווקי" – gaps read off the Figma card */
+.promo__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-24);
+}
+
+.promo {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-16);
+  padding: var(--space-32);
+  border-radius: var(--radius-md);
+  background: var(--info-bg);
+  text-align: center;
+}
+
+.promo__text {
+  max-width: 360px;
+}
+
+/* Button + link, 8px apart (Figma) */
+.promo__actions {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-8);
+}
+
+/* Close: 28px circle at the top inline-end (top-left in RTL) */
+.promo__close {
+  position: absolute;
+  top: var(--space-16);
+  inset-inline-end: var(--space-16);
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--info-border);
+  color: var(--text-primary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.promo__pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-24);
+  color: var(--primary-600);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.dot--on {
+  background: var(--text-primary);
+}

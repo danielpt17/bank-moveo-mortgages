@@ -1,0 +1,21 @@
+@media print {
+
+  .header,
+  .hero,
+  .nav,
+  .actions,
+  .flow__aside,
+  .skip-link,
+  .done__tools {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}

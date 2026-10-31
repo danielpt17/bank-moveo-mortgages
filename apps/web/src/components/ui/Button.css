@@ -1,0 +1,77 @@
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: 40px; /* Figma: 40 tall, 4px/24px padding, 1px border */
+  padding: 4px var(--space-24);
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.btn--primary {
+  background: var(--primary-600);
+  color: var(--white);
+}
+
+.btn--primary:hover {
+  background: var(--primary-700);
+}
+
+.btn--secondary {
+  background: var(--white);
+  color: var(--primary-600);
+  border-color: var(--primary-600);
+}
+
+.btn--secondary:hover {
+  background: var(--primary-50);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--primary-600);
+  padding-inline: var(--space-12);
+  min-height: 40px;
+}
+
+.btn--ghost:hover {
+  background: var(--primary-50);
+}
+
+.btn--sm {
+  min-height: 36px;
+  padding-inline: var(--space-16);
+  font-size: var(--fs-caption);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--primary-600);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

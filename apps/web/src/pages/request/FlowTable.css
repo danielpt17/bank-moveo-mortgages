@@ -1,0 +1,220 @@
+/* ---------- Flow table (Figma "פרטי הבקשה") ----------
+   Header cell: 44px = 8px top + 16px text + 20px bottom; data cell: 24px top/bottom.
+   Figma cells have 5px side padding and a 24px column gap; a collapsed table has no gap,
+   so each cell takes 5 + 12 = 17px per side and the bottom line stays continuous. */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  /* auto layout: the checkbox column takes its 36px, the rest share the row by the Figma ratio */
+}
+
+.tbl__col-check {
+  width: 48px;
+  /* Figma 36px cell + 12px (half the column gap) */
+}
+
+.tbl__col-more {
+  width: 0;
+}
+
+.tbl caption {
+  caption-side: top;
+  text-align: start;
+}
+
+.tbl th,
+.tbl td {
+  text-align: start;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+  padding-inline: 17px;
+}
+
+.tbl th:first-child,
+.tbl td:first-child {
+  padding-inline-start: 5px;
+}
+
+.tbl th:last-child,
+.tbl td:last-child {
+  padding-inline-end: 5px;
+}
+
+.tbl th {
+  padding-block: 8px 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--text-secondary);
+}
+
+.tbl td {
+  padding-block: 24px;
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-primary);
+}
+
+/* Figma: 36px cell with a 20px box, so 8px each side (+12 towards the next column) */
+.tbl__check {
+  padding-inline: 8px 20px;
+}
+
+.tbl__check input {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--primary-600);
+}
+
+.tbl__check input[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* The bubble opens towards the row (start side), not off the card edge */
+.tbl__check .tip-bubble {
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+}
+
+.tbl td label {
+  cursor: pointer;
+}
+
+.tbl__row--disabled td {
+  color: var(--text-secondary);
+}
+
+/* Stacked lines in a cell (borrowers, rate + amount), 4px apart (Figma).
+   justify-items: start – otherwise an LTR .num line stretches across the cell and its text lands on the left */
+.tbl__lines {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+}
+
+/* Desktop: the "more" column exists only for mobile, so it takes no space */
+.tbl th.tbl__more,
+.tbl td.tbl__more {
+  padding: 0;
+}
+
+.tbl__more-btn {
+  display: none;
+}
+
+/* Info button in a header cell: 24px target, but it must not grow the 16px text line (44px header) */
+.tbl th .tip-wrap {
+  vertical-align: top;
+  margin-inline-start: var(--space-4);
+  /* Figma: icon after the label, at the end side */
+  margin-block: -4px;
+}
+
+/* The last row of a table has no line under it (Figma shows this on the summary; step 1 is
+   inconsistent there, so we apply it everywhere – our decision) */
+.tbl tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Mobile (Figma 390): a row shows checkbox, file number, loan name and a chevron;
+   the chevron opens the other three fields under them (open state is our reading, not in Figma) */
+@media (max-width: 1023px) {
+  .tbl thead {
+    display: none;
+  }
+
+  .tbl,
+  .tbl tbody,
+  .tbl caption {
+    display: block;
+  }
+
+  .tbl tr {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr) minmax(0, 1fr) 24px;
+    gap: var(--space-16) var(--space-12);
+    align-items: start;
+    padding: var(--space-16) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tbl tbody tr:last-child {
+    border-bottom: 0;
+    /* same rule as desktop: no line under the last row */
+  }
+
+  .tbl td {
+    display: block;
+    padding: 0;
+    border: 0;
+  }
+
+  .tbl td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: var(--font-size-xs);
+    line-height: 16px;
+    color: var(--text-secondary);
+  }
+
+  .tbl__check {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Select table: hidden until the row is opened – borrowers, payment, current day */
+  .tbl--select td:nth-child(4),
+  .tbl--select td:nth-child(5),
+  .tbl--select td:nth-child(6) {
+    display: none;
+  }
+
+  .tbl--select .tbl__row--open td:nth-child(4),
+  .tbl--select .tbl__row--open td:nth-child(5),
+  .tbl--select .tbl__row--open td:nth-child(6) {
+    display: block;
+  }
+
+  .tbl--select td:nth-child(4),
+  .tbl--select td:nth-child(6) {
+    grid-column: 2;
+  }
+
+  .tbl--select td:nth-child(5) {
+    grid-column: 3;
+  }
+
+  /* Summary table: two label-over-value cells per line, nothing collapsed (no mobile frame in Figma) */
+  .tbl--summary tr {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .tbl__more {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .tbl__more-btn {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .tbl__more-btn svg {
+    transition: transform 0.15s;
+  }
+
+  .tbl__more-btn[aria-expanded='true'] svg {
+    transform: rotate(180deg);
+  }
+}
