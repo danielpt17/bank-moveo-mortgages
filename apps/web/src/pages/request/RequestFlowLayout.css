@@ -4,13 +4,6 @@
   padding-inline: var(--gutter);
 }
 
-/* Desktop gutters: 40px; above 1620 the content stops growing and the margins take the rest */
-@media (min-width: 1024px) {
-  .flow {
-    padding-inline: 40px;
-  }
-}
-
 /* Head (title, step, exit) / main / aside. Mobile: one column. Desktop: aside beside main, under the
    head row, in the Figma 1920 proportions (1020 : 435, gap 85, 1540 wide) at every width. */
 .flow__grid {
@@ -23,17 +16,6 @@
     'aside';
   max-width: 1540px; /* Figma: 1920 − 2 × 190 */
   margin-inline: auto;
-}
-
-@media (min-width: 1024px) {
-  .flow__grid {
-    grid-template-columns: minmax(0, 1020fr) minmax(0, 435fr); /* Figma */
-    gap: var(--space-16) 85px; /* Figma */
-    grid-template-areas:
-      'head .'
-      'main aside';
-    align-items: start;
-  }
 }
 
 .flow__head {
@@ -61,19 +43,13 @@
 .flow__exit {
   color: var(--text-primary);
   font-size: var(--font-size-s);
-  align-self: flex-end;
+  align-self: flex-start; /* Figma mobile: at the start (right) */
 }
 
 .flow__title {
   font-size: var(--font-size-l);
   font-weight: 500;
   line-height: 100%;
-}
-
-@media (min-width: 1024px) {
-  .flow__title {
-    font-size: var(--font-size-xl);
-  }
 }
 
 .stepbar {
@@ -85,39 +61,6 @@
 
 .stepbar__label {
   font-size: 18px;
-}
-
-/* Desktop head (Figma): title at the start, step label + segments under it, exit at the end of that row.
-   Grid only so the exit link can stay first in the DOM (mobile puts it on top) yet render in row 2.
-   The title auto-places into the free cell of row 1. */
-@media (min-width: 1024px) {
-  .flow__head {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--space-16) var(--space-12);
-    text-align: start;
-    align-items: end;
-  }
-
-  .flow__exit {
-    font-size: var(--font-size-s);
-    color: var(--text-primary);
-    grid-column: 2;
-    grid-row: 3;
-    align-self: end;
-  }
-
-  /* The title takes the full row, so the step row is always row 2 */
-  .flow__title {
-    grid-column: 1 / -1;
-  }
-
-  .stepbar {
-    grid-column: 1;
-    grid-row: 3;
-    justify-items: start;
-    margin-top: 0;
-  }
 }
 
 .stepbar__segments {
@@ -168,13 +111,6 @@
   font-size: var(--font-size-l);
   font-weight: 500;
   line-height: 100%;
-}
-
-@media (min-width: 1024px) {
-  .group__title {
-    font-size: var(--font-size-m);
-    line-height: 24px;
-  }
 }
 
 .group__head {
@@ -285,4 +221,58 @@
 
 .side-help__steps svg {
   color: var(--accent-600);
+}
+
+/* ---------- min-width: 1024px ---------- */
+@media (min-width: 1024px) {
+  /* Desktop gutters: 40px; above 1620 the content stops growing and the margins take the rest */
+  .flow {
+    padding-inline: 40px;
+  }
+
+  .flow__grid {
+    grid-template-columns: minmax(0, 1020fr) minmax(0, 435fr); /* Figma */
+    gap: var(--space-16) 85px; /* Figma */
+    grid-template-areas:
+      'head .'
+      'main aside';
+    align-items: start;
+  }
+
+  /* Desktop head (Figma): title at the start, step label + segments under it, exit at the end of that row.
+   Grid only so the exit link can stay first in the DOM (mobile puts it on top) yet render in row 2.
+   The title auto-places into the free cell of row 1. */
+  .flow__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-16) var(--space-12);
+    text-align: start;
+    align-items: end;
+  }
+
+  .flow__exit {
+    font-size: var(--font-size-s);
+    color: var(--text-primary);
+    grid-column: 2;
+    grid-row: 3;
+    align-self: end;
+  }
+
+  /* XL on desktop; takes the full row, so the step row is always row 2 */
+  .flow__title {
+    font-size: var(--font-size-xl);
+    grid-column: 1 / -1;
+  }
+
+  .stepbar {
+    grid-column: 1;
+    grid-row: 3;
+    justify-items: start;
+    margin-top: 0;
+  }
+
+  .group__title {
+    font-size: var(--font-size-m);
+    line-height: 24px;
+  }
 }

@@ -44,7 +44,7 @@ export function StepChooseDay() {
 
   return (
     <section className="card flow__card" aria-labelledby="step-heading">
-      <h2 id="step-heading" ref={headingRef} tabIndex={-1} className="text-l step-heading">
+      <h2 id="step-heading" ref={headingRef} tabIndex={-1} className="text-m step-heading">
         בחירת תאריך לחיוב
       </h2>
 

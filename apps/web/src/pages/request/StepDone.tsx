@@ -30,7 +30,7 @@ export function StepDone() {
       <section className="card done__hero" aria-labelledby="step-heading">
         <img className="done__icon" src="/illustration-done.png" alt="" width={210} height={110} />
         <div className="done__text">
-          <h2 id="step-heading" ref={headingRef} tabIndex={-1} className="text-l step-heading">
+          <h2 id="step-heading" ref={headingRef} tabIndex={-1} className="done__title step-heading">
             הפעולה בוצעה בהצלחה!
           </h2>
           <p className='text-s'>בקשתך לשינוי מועד חיוב המשכנתה הועברה לטיפול הבנקאי</p>

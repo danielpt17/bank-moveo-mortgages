@@ -108,19 +108,6 @@
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 1024px) {
-  .mortgages--grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1600px) {
-  .mortgages--grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    /* Figma: three cards per row at 1920 */
-  }
-}
-
 .mcard {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -185,7 +172,12 @@
   grid-template-columns: 1fr;
 }
 
+/* ---------- min-width: 1024px ---------- */
 @media (min-width: 1024px) {
+  .mortgages--grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .mortgages--list .mcard {
     grid-template-columns: 1fr 1.4fr auto;
     align-items: center;
@@ -193,5 +185,13 @@
 
   .mortgages--list .mcard__footer {
     justify-content: flex-end;
+  }
+}
+
+/* ---------- min-width: 1600px (after 1024, so it wins there) ---------- */
+@media (min-width: 1600px) {
+  .mortgages--grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* Figma: three cards per row at 1920 */
   }
 }
