@@ -9,3 +9,8 @@ coverage
 playwright-report
 test-results
 *.tsbuildinfo
+
+# Agent skills installed locally (Neon etc.), not part of the project
+.agents/
+skills-lock.json
+.neon
