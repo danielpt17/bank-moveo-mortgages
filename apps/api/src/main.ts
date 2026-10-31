@@ -1,36 +1,16 @@
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import helmet from 'helmet';
 import { AppModule } from './app.module';
-import { HttpExceptionFilter } from './common/http-exception.filter';
+import { configureApp } from './app.setup';
 import { Env } from './config/env';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule, { bufferLogs: false });
   const config = app.get(ConfigService<Env, true>);
 
-  app.use(helmet());
-  app.enableCors({
-    origin: config
-      .get('CORS_ORIGINS', { infer: true })
-      .split(',')
-      .map((o) => o.trim())
-      .filter(Boolean),
-    allowedHeaders: ['Content-Type', 'Idempotency-Key'],
-    methods: ['GET', 'POST', 'OPTIONS'],
-  });
-  app.setGlobalPrefix('api/v1');
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-      transformOptions: { enableImplicitConversion: false },
-    }),
-  );
-  app.useGlobalFilters(new HttpExceptionFilter());
+  configureApp(app);
   app.enableShutdownHooks();
 
   const document = SwaggerModule.createDocument(

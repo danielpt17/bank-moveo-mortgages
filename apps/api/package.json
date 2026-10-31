@@ -13,6 +13,7 @@
     "migrate:create": "node-pg-migrate --migrations-dir migrations --migration-file-language sql create",
     "seed": "tsx scripts/seed.ts",
     "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint \"src/**/*.ts\" \"scripts/**/*.ts\""
