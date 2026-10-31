@@ -25,7 +25,7 @@
 /* Figma (step 2 chips): grey box, ≈136×36, radio + text */
 .choice--boxed {
   min-height: 36px;
-  min-width: 136px; /* Figma? */
+  min-width: 136px;
   padding: 0 var(--space-12);
   border-radius: var(--radius-sm);
   background: var(--surface);
@@ -64,4 +64,3 @@
   border-color: #f3c4c4;
   color: var(--error-strong);
 }
-

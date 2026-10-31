@@ -51,10 +51,33 @@ const PROPERTIES: SeedProperty[] = [
   },
 ];
 
-/** Last/next charge dates derived from the billing day around the design's "as of" date (Feb 2025). */
+const TIME_ZONE = process.env.BUSINESS_TIMEZONE ?? 'Asia/Jerusalem';
+
+/** Today's Y-M-D in the bank's time zone (the seed may run on a UTC server). */
+function todayParts(): { y: number; m: number; d: number } {
+  const parts = new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE, year: 'numeric', month: '2-digit', day: '2-digit' })
+    .formatToParts(new Date())
+    .reduce<Record<string, string>>((acc, p) => ({ ...acc, [p.type]: p.value }), {});
+  return { y: Number(parts.year), m: Number(parts.month), d: Number(parts.day) };
+}
+
+const ymd = (y: number, m0: number, d: number): string => {
+  // m0 is 0-based and may overflow/underflow a year; Date.UTC normalises it
+  const date = new Date(Date.UTC(y, m0, d));
+  return date.toISOString().slice(0, 10);
+};
+
+/**
+ * Last/next charge dates relative to today: the most recent billing day that already passed and
+ * the next one to come. Demo data stays current however often the seed runs (every container start).
+ * In a real bank the core system would write these after each charge.
+ */
 function chargeDates(billingDay: number): { last: string; next: string } {
-  const dd = String(billingDay).padStart(2, '0');
-  return { last: `2025-01-${dd}`, next: `2025-02-${dd}` };
+  const { y, m, d } = todayParts();
+  const m0 = m - 1;
+  return d >= billingDay
+    ? { last: ymd(y, m0, billingDay), next: ymd(y, m0 + 1, billingDay) }
+    : { last: ymd(y, m0 - 1, billingDay), next: ymd(y, m0, billingDay) };
 }
 
 async function main(): Promise<void> {
@@ -112,6 +135,11 @@ async function main(): Promise<void> {
              monthly_interest = EXCLUDED.monthly_interest,
              start_date = EXCLUDED.start_date,
              end_date = EXCLUDED.end_date,
+             billing_day = EXCLUDED.billing_day,
+             last_charge_date = EXCLUDED.last_charge_date,
+             last_charge_amount = EXCLUDED.last_charge_amount,
+             next_charge_date = EXCLUDED.next_charge_date,
+             next_charge_amount = EXCLUDED.next_charge_amount,
              has_payment_delays = EXCLUDED.has_payment_delays,
              display_order = EXCLUDED.display_order
            RETURNING id`,

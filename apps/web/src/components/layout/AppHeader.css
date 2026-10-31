@@ -17,7 +17,8 @@
 
 .header__bell {
   flex: none;
-  width: 35px; /* same height as the pill (Figma) */
+  width: 35px;
+  /* same height as the pill (Figma) */
   height: 35px;
   padding: 0;
   border: 0;
@@ -36,9 +37,10 @@
   display: flex;
   align-items: center;
   gap: var(--space-8);
-  height: 35px; /* Figma mobile pill */
-  padding: 6px 16px; /* Figma: 6px; sides = Row/S, value to confirm */
-  border: 1px solid transparent; /* Figma: 1px stroke, colour to confirm */
+  height: 35px;
+  /* Figma mobile pill */
+  padding: var(--space-6) var(--space-16);
+  border: 1px solid #ffffff80; /* Figma */
   border-radius: var(--radius-pill);
   background: var(--white);
   color: var(--text-primary);
@@ -81,11 +83,13 @@
 }
 
 .header__account-text {
-  width: 276px; /* Figma */
+  width: 276px;
+  /* Figma */
 }
 
 .header__account-chevron {
-  margin-inline-start: 20px; /* Figma */
+  margin-inline-start: 20px;
+  /* Figma */
 }
 
 .header__account-label {
@@ -218,7 +222,8 @@
   padding: 0 3px;
   border-radius: var(--radius-pill);
   background: var(--accent-600);
-  color: var(--text-primary); /* white on coral is 2.7:1 at 10px – fails AA (axe color-contrast) */
+  color: var(--text-primary);
+  /* white on coral is 2.7:1 at 10px – fails AA (axe color-contrast) */
   font-size: 10px;
   font-weight: 500;
   line-height: 18px;
@@ -228,6 +233,7 @@
 
 /* ---------- max-width: 1023px ---------- */
 @media (max-width: 1023px) {
+
   /* Mobile (< 1024): the desktop row gives way to the bell + pill row. Last so it wins the cascade. */
   .header {
     background: transparent;
@@ -241,7 +247,7 @@
   /* Lobby: glass pill and bell over the wave (Figma: near-transparent white, inset highlights, blur) */
   .header--lobby .header__bell,
   .header--lobby .header__pill {
-    background: #ffffff33; /* Figma? near transparent */
+    background: #feebe84d; /* Figma: accent-100 at 30%, same fill as the flow header */
     box-shadow:
       1px 1px 4px 0 #ffffff99 inset,
       -1px -1px 1px 0 #ffffff40 inset,
@@ -260,8 +266,10 @@
     background: var(--white);
     border: 1px solid var(--border);
     border-top: 0;
-    border-radius: 0 0 24px 24px; /* Figma */
-    box-shadow: 0 4px 9px 0 #00000008; /* Figma */
+    border-radius: 0 0 24px 24px;
+    /* Figma */
+    box-shadow: 0 4px 9px 0 #00000008;
+    /* Figma */
   }
 
   .header--flow .header__bell,

@@ -15,7 +15,8 @@
   --accent-500: #f68a79;
   --accent-400: #f9a89b;
   --accent-200: #fcd6d0;
-  --accent-150: #fddfda; /* halo behind the bulb icon */
+  --accent-150: #fddfda;
+  /* halo behind the bulb icon */
   --accent-100: #feebe8;
 
   --text-primary: #353535;
@@ -29,7 +30,8 @@
   --error: #cc0000;
   --error-strong: #b10000;
   --success: #1ba473;
-  --info-bg: #e4f0fa; /* light-blue notice / promo surface */
+  --info-bg: #e4f0fa;
+  /* light-blue notice / promo surface */
   --info-border: #c9dced;
 
   /* Timeline colours from the lobby chart */
@@ -58,6 +60,7 @@
 
   /* Spacing – named by value so Figma numbers map 1:1 */
   --space-4: 4px;
+  --space-6: 6px;
   --space-8: 8px;
   --space-12: 12px;
   --space-14: 14px;
@@ -67,6 +70,7 @@
   --space-32: 32px;
   --space-48: 48px;
 
-  --gutter: 16px; /* side padding below desktop; desktop values are set per element (nav 44px, main 120px) */
+  --gutter: 16px;
+  /* side padding below desktop; desktop values are set per element (nav 44px, main 120px) */
   --focus-ring: 0 0 0 3px var(--white), 0 0 0 6px var(--secondary-600);
 }
