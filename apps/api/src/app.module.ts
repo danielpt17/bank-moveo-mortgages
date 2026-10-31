@@ -5,6 +5,7 @@ import { CacheModule } from './cache/cache.module';
 import { DemoCustomerMiddleware } from './common/demo-customer.middleware';
 import { validateEnv } from './config/env';
 import { DatabaseModule } from './database/database.module';
+import { DemoModule } from './demo/demo.module';
 import { HealthController } from './health/health.controller';
 import { LobbyModule } from './lobby/lobby.module';
 
@@ -15,6 +16,7 @@ import { LobbyModule } from './lobby/lobby.module';
     CacheModule,
     LobbyModule,
     BillingDayRequestsModule,
+    DemoModule,
   ],
   controllers: [HealthController],
 })

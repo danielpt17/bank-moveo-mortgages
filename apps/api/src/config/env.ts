@@ -30,6 +30,11 @@ export class Env {
 
   @IsString()
   BUSINESS_TIMEZONE: string = 'Asia/Jerusalem';
+
+  /** Enables POST /demo/reset when set; the same value must be sent as X-Demo-Reset-Token. */
+  @IsString()
+  @IsOptional()
+  DEMO_RESET_TOKEN?: string;
 }
 
 /** Validates process.env at startup so a misconfigured container fails fast. */
