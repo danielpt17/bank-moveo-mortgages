@@ -172,7 +172,7 @@ Indexes on every foreign key used by the lobby and request queries.
   1024 is the classic tablet line: a tablet in portrait (768–834) gets the phone layout, which is
   one roomy column; in landscape (1024+) it gets the desktop. Two things are deliberately not
   stretched on wide phone layouts: the account pill keeps a phone-like width and the wave keeps
-  its height. The nav bar tightens below 1500px and scrolls horizontally below ~1200px.
+  its height. The nav bar keeps its 16px text and scrolls horizontally below 1500px.
   Tables keep their Figma column ratios as percentage shares; on mobile a row collapses to the
   file number and loan name with a chevron that reveals the rest (the mobile frame shows only the
   collapsed state; the open state is our reading).
