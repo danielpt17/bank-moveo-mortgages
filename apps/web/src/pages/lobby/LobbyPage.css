@@ -4,62 +4,27 @@
   padding-inline: var(--gutter);
 }
 
-@media (min-width: 1024px) {
-  .lobby {
-    padding-top: 70px; /* Figma: 70px from the nav bar to the page title */
-  }
-}
-
-/* Desktop gutters: 40px (same as the header) until the Figma 1920 proportions apply at 1600 */
-@media (min-width: 1024px) {
-  .lobby {
-    padding-inline: 40px;
-  }
-}
-
-@media (min-width: 1600px) {
-  .lobby {
-    padding-inline: 120px; /* Figma */
-  }
+/* Title and columns share one measure: Figma 1920 − 2 × 120 = 1680, centred */
+.lobby__title,
+.lobby__columns {
+  max-width: 1680px;
+  margin-inline: auto;
 }
 
 .lobby__title {
   margin-bottom: var(--space-32);
 }
 
-/* Main column + aside. Stacked below 1024px, side by side above it. */
+/* Main column + aside. Stacked below 1024px; side by side above it in the Figma 1920
+   proportions (1043 : 547, gap 90) at every width, so nothing jumps and 1920 is pixel-exact. */
 .lobby__columns {
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
 }
 
-@media (min-width: 1024px) {
-  .lobby__columns {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--space-24);
-  }
-
-  .lobby__aside {
-    flex: none;
-    width: 320px; /* no Figma frame between mobile and 1920; same as the flow side card */
-  }
-}
-
-@media (min-width: 1600px) {
-  .lobby__columns {
-    gap: 90px; /* Figma */
-  }
-
-  .lobby__aside {
-    width: 547px; /* Figma */
-  }
-}
-
 /* Flex columns: cards stretch to the column width and can never push it wider */
 .lobby__main {
-  flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -67,7 +32,30 @@
 }
 
 .lobby__aside {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
+}
+
+/* ---------- min-width: 1024px ---------- */
+@media (min-width: 1024px) {
+  .lobby {
+    padding-top: 70px; /* Figma: 70px from the nav bar to the page title */
+    padding-inline: 40px; /* above 1760 the centred 1680 measure takes over */
+  }
+
+  .lobby__columns {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 90px; /* Figma */
+  }
+
+  .lobby__main {
+    flex: 1043 1 0; /* Figma */
+  }
+
+  .lobby__aside {
+    flex: 547 1 0; /* Figma */
+  }
 }

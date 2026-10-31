@@ -10,6 +10,7 @@
 .header__mobile {
   display: none;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-16);
   padding: var(--space-16) var(--space-12);
 }
@@ -29,7 +30,8 @@
 }
 
 .header__pill {
-  flex: 1;
+  /* fills the row on a phone; on wider screens it keeps a phone-like width instead of stretching */
+  flex: 0 1 360px;
   min-width: 0;
   display: flex;
   align-items: center;
@@ -224,8 +226,9 @@
   direction: ltr;
 }
 
-/* Mobile (< 1024): the desktop row gives way to the bell + pill row. Last so it wins the cascade. */
+/* ---------- max-width: 1023px ---------- */
 @media (max-width: 1023px) {
+  /* Mobile (< 1024): the desktop row gives way to the bell + pill row. Last so it wins the cascade. */
   .header {
     background: transparent;
     border-bottom: 0;
@@ -251,10 +254,8 @@
   .header__row {
     display: none;
   }
-}
 
-/* Flow screens on mobile: no wave, white bar, peach bell and pill (Figma) */
-@media (max-width: 1023px) {
+  /* Flow screens on mobile: no wave, white bar, peach bell and pill (Figma) */
   .header--flow {
     background: var(--white);
     border: 1px solid var(--border);

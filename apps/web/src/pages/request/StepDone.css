@@ -7,6 +7,20 @@
   padding-block: var(--space-32);
 }
 
+/* Figma: M on mobile, L on desktop */
+.done__title {
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: 24px;
+}
+
+@media (min-width: 1024px) {
+  .done__title {
+    font-size: var(--font-size-l);
+    line-height: 100%;
+  }
+}
+
 /* Figma: heading and text are one block, 8px apart */
 .done__text {
   display: grid;

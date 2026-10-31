@@ -8,7 +8,8 @@
 
 @media (min-width: 1024px) {
   .nav {
-    padding-inline: 44px; /* Figma */
+    padding-inline: 44px;
+    /* Figma */
     margin-top: calc(-208px + 22px);
     /* 24px of coral above the bar, per Figma */
   }
@@ -66,13 +67,6 @@
   margin-inline-start: auto;
 }
 
-/* Below the 1440 container the 12 items no longer fit at 16px; step down instead of scrolling. */
-@media (max-width: 1499px) {
-  .nav__link {
-    font-size: var(--font-size-xs);
-    padding: 0 var(--space-8);
-  }
-}
 
 /* Mobile (Figma): a plain text row over the wave, swipeable, no white bar and no chevrons */
 @media (max-width: 1023px) {
@@ -99,7 +93,7 @@
     display: none;
   }
 
-  .nav__list > li:last-child {
+  .nav__list>li:last-child {
     margin-inline-start: 0;
   }
 }

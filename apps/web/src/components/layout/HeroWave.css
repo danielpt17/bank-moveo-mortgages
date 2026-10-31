@@ -11,27 +11,27 @@
   background: url('/wave.png') center -92px / 1920px 300px no-repeat;
 }
 
-/* Mobile: the Figma mobile wave export (public/wave-mobile.png, 375×172, transparent below the curve)
-   from the page top, stretched to the viewport width so the curve keeps its shape. The coral ends
-   around the middle of the account pill; the phone's status bar above it is tinted via theme-color. */
-@media (max-width: 1023px) {
-  .hero {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: auto;
-    aspect-ratio: 375 / 172;
-    background: url('/wave-mobile.png') center top / 100% auto no-repeat;
-  }
-}
-
 /* Flow screens: a shorter band, same image placement */
 .hero--compact {
   height: 160px;
 }
 
+/* ---------- max-width: 1023px ---------- */
 @media (max-width: 1023px) {
+  /* Mobile: the Figma mobile wave export (public/wave-mobile.png, 375×172, transparent below the curve)
+   from the page top, stretched to the viewport width so the curve keeps its shape. The coral ends
+   around the middle of the account pill; the phone's status bar above it is tinted via theme-color. */
+  .hero {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* Fixed height: scaling the 375-wide export proportionally would make the band
+       350px tall at 768 and cover the page title. Width stretches, height does not. */
+    height: 172px;
+    background: url('/wave-mobile.png') center top / 100% 100% no-repeat;
+  }
+
   .hero--compact {
     display: none; /* Figma mobile flow: no wave */
   }

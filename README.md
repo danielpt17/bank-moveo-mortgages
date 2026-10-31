@@ -167,8 +167,12 @@ Indexes on every foreign key used by the lobby and request queries.
   are the Figma variables; typography is applied with classes named after them (`text-xl`,
   `text-s-medium`, …). A `text-*` class is never overridden: an element that needs two sizes
   (mobile vs desktop) gets its own class declaring both, so what you read is what renders.
-- **One responsive switch.** Figma defines two frames, 1920 and 390. Below 1024px the mobile
-  design is stretched; from 1024px the desktop design shrinks fluidly, pixel-exact at 1920.
+- **One responsive switch at 1024px.** Figma defines two frames, 1920 and 390. Below 1024px the
+  mobile design is stretched; from 1024px the desktop design shrinks fluidly, pixel-exact at 1920.
+  1024 is the classic tablet line: a tablet in portrait (768–834) gets the phone layout, which is
+  one roomy column; in landscape (1024+) it gets the desktop. Two things are deliberately not
+  stretched on wide phone layouts: the account pill keeps a phone-like width and the wave keeps
+  its height. The nav bar keeps its 16px text and scrolls horizontally below 1500px.
   Tables keep their Figma column ratios as percentage shares; on mobile a row collapses to the
   file number and loan name with a chevron that reveals the rest (the mobile frame shows only the
   collapsed state; the open state is our reading).
@@ -195,6 +199,8 @@ Indexes on every foreign key used by the lobby and request queries.
   total fee are computed and stored but not displayed, because they are not in the design.
 - Out-of-scope controls (account switcher, language, bell, WhatsApp, other nav items) look like
   the design but do nothing.
+- The mobile frame of the request flow replaces the service card with a floating headset button;
+  what it opens is not designed, so on mobile the service card simply follows the content.
 
 ---
 
