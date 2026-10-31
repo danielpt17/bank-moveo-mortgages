@@ -20,6 +20,7 @@ import { LobbyModule } from './lobby/lobby.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(DemoCustomerMiddleware).forRoutes('*');
+    // Express 5 / Nest 11 wildcard syntax (plain '*' logs a LegacyRouteConverter warning)
+    consumer.apply(DemoCustomerMiddleware).forRoutes('{*splat}');
   }
 }

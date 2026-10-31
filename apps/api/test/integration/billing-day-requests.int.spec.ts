@@ -153,6 +153,18 @@ describe('billing-day requests (integration)', () => {
       expect(await db.query('SELECT 1 FROM billing_day_requests')).toHaveLength(1);
     });
 
+    it('rejects a reused Idempotency-Key with different items (422) instead of replaying', async () => {
+      const key = randomUUID();
+      await api().post('/api/v1/billing-day-requests').set('Idempotency-Key', key).send(body()).expect(201);
+      const res = await api()
+        .post('/api/v1/billing-day-requests')
+        .set('Idempotency-Key', key)
+        .send({ items: [{ mortgageId: m2.id, newBillingDay: otherDay(m2.billingDay) }] })
+        .expect(422);
+      expect(res.body.code).toBe('IDEMPOTENCY_KEY_REUSED');
+      expect(await db.query('SELECT 1 FROM billing_day_requests')).toHaveLength(1);
+    });
+
     it('refuses a second open request for the same mortgage (409)', async () => {
       await api().post('/api/v1/billing-day-requests').set('Idempotency-Key', randomUUID()).send(body()).expect(201);
       const res = await api().post('/api/v1/billing-day-requests').set('Idempotency-Key', randomUUID()).send(body()).expect(409);
@@ -184,6 +196,78 @@ describe('billing-day requests (integration)', () => {
       const created = await api().post('/api/v1/billing-day-requests').set('Idempotency-Key', randomUUID()).send(body()).expect(201);
       await api().get(`/api/v1/billing-day-requests/${created.body.id}`).expect(200);
       await api().get(`/api/v1/billing-day-requests/${randomUUID()}`).expect(404);
+    });
+  });
+
+  describe('customers only see and change their own mortgages', () => {
+    // A second customer with one mortgage, inserted straight into the DB (the seed has one customer)
+    const other = { customerId: '', mortgageId: '', requestId: '' };
+
+    beforeAll(async () => {
+      await db.transaction(async (client) => {
+        const customer = await client.query<{ id: string }>(
+          `INSERT INTO customers (account_number, first_name, last_name, phone)
+           VALUES ('999-000001', 'לקוח', 'אחר', '0500000001') RETURNING id`,
+        );
+        other.customerId = customer.rows[0].id;
+        const property = await client.query<{ id: string }>(
+          `INSERT INTO properties (customer_id, street, city) VALUES ($1, 'רחוב אחר 1', 'חיפה') RETURNING id`,
+          [other.customerId],
+        );
+        const mortgage = await client.query<{ id: string }>(
+          `INSERT INTO mortgages (property_id, mortgage_number, product_name, original_amount, remaining_balance,
+                                  monthly_payment, interest_rate, monthly_interest, billing_day, start_date, end_date)
+           VALUES ($1, '9990000001', 'משכנתה של מישהו אחר', 100000, 90000, 500, 5, 375, 10, '2020-01-01', '2040-01-01')
+           RETURNING id`,
+          [property.rows[0].id],
+        );
+        other.mortgageId = mortgage.rows[0].id;
+        const req = await client.query<{ id: string }>(
+          `INSERT INTO billing_day_requests (customer_id, idempotency_key, effective_from, fee_per_mortgage, total_fee, terms_accepted_at, notify_phone)
+           VALUES ($1, $2, '2030-01-01', 5.44, 5.44, now(), '0500000001') RETURNING id`,
+          [other.customerId, randomUUID()],
+        );
+        other.requestId = req.rows[0].id;
+        await client.query(
+          `INSERT INTO billing_day_request_items (request_id, mortgage_id, previous_billing_day, new_billing_day, fee)
+           VALUES ($1, $2, 10, 1, 5.44)`,
+          [other.requestId, other.mortgageId],
+        );
+      });
+    });
+
+    afterAll(async () => {
+      // requests cascade to items; mortgages/properties are removed explicitly (ON DELETE RESTRICT)
+      await db.query('DELETE FROM billing_day_requests WHERE customer_id = $1', [other.customerId]);
+      await db.query('DELETE FROM mortgages WHERE id = $1', [other.mortgageId]);
+      await db.query('DELETE FROM properties WHERE customer_id = $1', [other.customerId]);
+      await db.query('DELETE FROM customers WHERE id = $1', [other.customerId]);
+    });
+
+    it('the lobby lists only the demo customer’s mortgages', async () => {
+      const lobby = (await api().get('/api/v1/lobby').expect(200)).body as LobbyDto;
+      const ids = lobby.properties.flatMap((p) => p.mortgages.map((m) => m.id));
+      expect(ids).not.toContain(other.mortgageId);
+      expect(lobby.customer.id).toBe(customerId);
+    });
+
+    it('a request for someone else’s mortgage is refused (403), on preview and on create', async () => {
+      const items = [{ mortgageId: other.mortgageId, newBillingDay: 1 }];
+      const preview = await api().post('/api/v1/billing-day-requests/preview').send({ items }).expect(403);
+      expect(preview.body.code).toBe('MORTGAGE_NOT_OWNED');
+      await api().post('/api/v1/billing-day-requests').set('Idempotency-Key', randomUUID()).send({ items }).expect(403);
+      expect(await db.query('SELECT 1 FROM billing_day_requests WHERE customer_id = $1', [customerId])).toHaveLength(0);
+    });
+
+    it('mixing an own mortgage with a foreign one is refused as a whole', async () => {
+      await api()
+        .post('/api/v1/billing-day-requests/preview')
+        .send({ items: [{ mortgageId: m1.id, newBillingDay: otherDay(m1.billingDay) }, { mortgageId: other.mortgageId, newBillingDay: 1 }] })
+        .expect(403);
+    });
+
+    it('someone else’s request cannot be read by id (404, not 403: existence is not revealed)', async () => {
+      await api().get(`/api/v1/billing-day-requests/${other.requestId}`).expect(404);
     });
   });
 
