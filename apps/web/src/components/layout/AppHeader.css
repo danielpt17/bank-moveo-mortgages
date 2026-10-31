@@ -78,6 +78,14 @@
   background: var(--primary-50);
 }
 
+.header__account-text {
+  width: 276px; /* Figma */
+}
+
+.header__account-chevron {
+  margin-inline-start: 20px; /* Figma */
+}
+
 .header__account-label {
   display: block;
   color: var(--primary-600);

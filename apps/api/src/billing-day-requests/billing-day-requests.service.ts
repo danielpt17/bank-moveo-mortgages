@@ -65,7 +65,7 @@ export class BillingDayRequestsService {
   ): Promise<{ request: BillingDayRequestDto; created: boolean }> {
     const [existing] = await this.repo.findByIdempotencyKey(customerId, idempotencyKey);
     if (existing) {
-      return { request: await this.toDto(existing, true), created: false };
+      return { request: await this.replay(existing, dto), created: false };
     }
 
     const mortgages = await this.loadAndValidate(customerId, dto.items);
@@ -95,7 +95,7 @@ export class BillingDayRequestsService {
       // is the final arbiter, so translate its unique violations.
       if (isUniqueViolation(error, IDEMPOTENCY_CONSTRAINT)) {
         const [raced] = await this.repo.findByIdempotencyKey(customerId, idempotencyKey);
-        if (raced) return { request: await this.toDto(raced, true), created: false };
+        if (raced) return { request: await this.replay(raced, dto), created: false };
       }
       if (isUniqueViolation(error, ONE_OPEN_PER_MORTGAGE_INDEX)) {
         throw new ConflictException({
@@ -115,6 +115,25 @@ export class BillingDayRequestsService {
     const [row] = await this.repo.findById(customerId, id);
     if (!row) throw new NotFoundException({ code: 'REQUEST_NOT_FOUND', message: 'Request not found' });
     return this.toDto(row, false);
+  }
+
+  /**
+   * A repeated Idempotency-Key must carry the same items; otherwise the client reused a key
+   * for a different request and silently returning the old one would hide its data.
+   */
+  private async replay(existing: RequestRow, dto: CreateBillingDayRequestDto): Promise<BillingDayRequestDto> {
+    const original = await this.toDto(existing, true);
+    const key = (mortgageId: string, day: number) => `${mortgageId}:${day}`;
+    const sent = new Set(dto.items.map((i) => key(i.mortgageId, i.newBillingDay)));
+    const stored = new Set(original.items.map((i) => key(i.mortgage.id, i.newBillingDay)));
+    const same = sent.size === stored.size && [...sent].every((k) => stored.has(k));
+    if (!same) {
+      throw new UnprocessableEntityException({
+        code: 'IDEMPOTENCY_KEY_REUSED',
+        message: 'This Idempotency-Key was already used for a request with different items',
+      });
+    }
+    return original;
   }
 
   /** Ownership, allowed-day and one-open-request checks. Returns the owned mortgages by id. */

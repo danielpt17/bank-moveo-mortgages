@@ -49,10 +49,14 @@ Daniel reads exact sizes from Figma's inspector and dictates them; apply them as
 - Demo numbers in the Figma are internally inconsistent; we seed the per-mortgage data from the lobby
   cards and compute the summary from the DB. Say so in the README.
 - **CSS**: plain CSS, px units only (no rem), tokens in `apps/web/src/styles/tokens.css`
-  (colors + type scale `--fs-h1..--fs-caption` with `--fw-*` weights, straight from the Figma tokens
-  frame). Shared styles in `src/styles/*.css`; component CSS lives next to its component and is
-  imported by it. Typography is applied with classes (`h1`, `h2`, `h3`, `body`, `caption`); the tag
-  carries semantics (e.g. lobby title is `<h1 className="h3">`).
+  (colors + the Figma variable scale `--font-size-xl/l/m/s/xs`, read from the screens' inspector).
+  Shared styles in `src/styles/*.css`; component CSS lives next to its component and is imported by
+  it. Typography is applied with classes named after the Figma variables (`text-xl`, `text-l`,
+  `text-m`, `text-m-regular`, `text-s`, `text-s-medium`, `text-xs`, `text-xs-medium`, plus the colour
+  modifier `text-secondary`); the tag carries semantics (e.g. lobby title is `<h1 className="text-xl">`).
+  A `text-*` class is never overridden: an element that needs two sizes (mobile/desktop) gets its own
+  class declaring both. One layout switch at 1024px (mobile below, desktop above); 1600 only in the
+  lobby for the Figma 1920 proportions.
 - **Icons**: `@mui/icons-material` outlined variants, deep-imported directly where used
   (`import X from '@mui/icons-material/X'`), no wrapper component. Directional glyphs are mirrored
   for RTL with `scaleX(-1)`. Unread mail dot = MUI `Badge`. Accessibility icon is composed

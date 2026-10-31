@@ -29,7 +29,8 @@
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-float);
   padding: var(--space-8) var(--space-12);
-  font-size: var(--fs-caption);
+  font-size: var(--font-size-xs);
+  line-height: 16px;
   color: var(--text-primary);
   text-align: start;
 }

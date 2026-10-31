@@ -15,7 +15,7 @@ import { PG_POOL } from './database.tokens';
         new Pool({
           connectionString: config.get('DATABASE_URL', { infer: true }),
           max: 10,
-          // Return numeric(…) columns as strings; services convert explicitly.
+          // pg returns numeric(…) columns as strings by default; services convert explicitly with toNumber().
         }),
     },
     DatabaseService,

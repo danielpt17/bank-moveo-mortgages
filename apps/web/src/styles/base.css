@@ -26,9 +26,9 @@ html {
 body {
   margin: 0;
   font-family: var(--font);
-  font-size: var(--fs-body);
-  font-weight: var(--fw-body);
-  line-height: var(--lh-body);
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  line-height: 20px;
   color: var(--text-primary);
   background: var(--surface);
   min-width: 320px;

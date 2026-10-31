@@ -51,7 +51,7 @@
 .btn--sm {
   min-height: 36px;
   padding-inline: var(--space-16);
-  font-size: var(--fs-caption);
+  font-size: var(--font-size-xs);
 }
 
 .btn:disabled,

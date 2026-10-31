@@ -35,7 +35,7 @@ export function RequestFlowLayout() {
         דלג לתוכן הראשי
       </a>
       <AppHeader variant="flow" customer={lobby.data?.customer} />
-      <HeroWave tall />
+      <HeroWave compact />
 
       <main id="main" className="flow">
         <div className="flow__grid">
@@ -88,7 +88,7 @@ export function RequestFlowLayout() {
               {step < 2 ? (
                 <>
                   <p className="side-help__box">אנחנו איתך לאורך התהליך</p>
-                  <p className="text-xs" style={{ textAlign: 'center' }}>
+                  <p className="text-xs side-help__hint">
                     סיכום השלבים שעברת וטיפים רלוונטים יופיעו כאן במהלך התהליך
                   </p>
                 </>

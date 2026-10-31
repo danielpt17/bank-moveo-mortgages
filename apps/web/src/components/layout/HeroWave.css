@@ -27,12 +27,12 @@
 }
 
 /* Flow screens: a shorter band, same image placement */
-.hero--tall {
+.hero--compact {
   height: 160px;
 }
 
 @media (max-width: 1023px) {
-  .hero--tall {
+  .hero--compact {
     display: none; /* Figma mobile flow: no wave */
   }
 }

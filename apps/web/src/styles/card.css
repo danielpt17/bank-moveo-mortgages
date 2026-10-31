@@ -20,12 +20,3 @@
 }
 
 /* Pale coral circle behind a section icon (the bulb) – Figma #FDDFDA */
-.icon-halo {
-  display: inline-grid;
-  place-items: center;
-  width: 40px; /* confirm in Figma */
-  height: 40px;
-  border-radius: 50%;
-  background: var(--accent-150);
-  flex: none;
-}

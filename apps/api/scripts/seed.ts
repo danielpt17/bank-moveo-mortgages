@@ -66,13 +66,20 @@ async function main(): Promise<void> {
   try {
     await client.query('BEGIN');
 
-    await client.query(
+    // The account number is the natural key; the id is whatever the row already has.
+    const {
+      rows: [{ id: customerId }],
+    } = await client.query<{ id: string }>(
       `INSERT INTO customers (id, account_number, first_name, last_name, phone)
        VALUES ($1, $2, $3, $4, $5)
        ON CONFLICT (account_number) DO UPDATE
-         SET first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, phone = EXCLUDED.phone`,
+         SET first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name, phone = EXCLUDED.phone
+       RETURNING id`,
       [DEMO_CUSTOMER_ID, '401-123456', 'אביגיל', 'רוזנבלום', '0501234122'],
     );
+    if (customerId !== DEMO_CUSTOMER_ID) {
+      console.warn(`seed: customer already exists with id ${customerId}; set DEMO_CUSTOMER_ID to it`);
+    }
 
     for (const [propertyIndex, property] of PROPERTIES.entries()) {
       const {
@@ -82,7 +89,7 @@ async function main(): Promise<void> {
          VALUES ($1, $2, $3, $4)
          ON CONFLICT (customer_id, street, city) DO UPDATE SET display_order = EXCLUDED.display_order
          RETURNING id`,
-        [DEMO_CUSTOMER_ID, property.street, property.city, propertyIndex],
+        [customerId, property.street, property.city, propertyIndex],
       );
 
       for (const [mortgageIndex, m] of property.mortgages.entries()) {

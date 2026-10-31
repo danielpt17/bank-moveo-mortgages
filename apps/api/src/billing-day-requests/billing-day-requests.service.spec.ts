@@ -55,7 +55,22 @@ function build(mortgages: OwnedMortgageRow[]) {
     findByIdempotencyKey: vi.fn(async () => [] as RequestRow[]),
     findCustomerPhone: vi.fn(async () => [{ phone: '0501234122' }]),
     insert: vi.fn(async () => requestRow()),
-    findItems: vi.fn(async () => []),
+    // the stored items of the (replayed) request: mortgage M1 → day 1
+    findItems: vi.fn(async () => [
+      {
+        mortgage_id: M1,
+        mortgage_number: '2392345632',
+        product_name: 'רכישת דירה',
+        borrowers: ['אביגיל רוזנבלום'],
+        interest_rate: '5.75',
+        monthly_interest: '173.98',
+        street: 'רבי יוחנן הלוי 23',
+        city: 'ירושלים',
+        previous_billing_day: 10,
+        new_billing_day: 1,
+        fee: '5.44',
+      },
+    ]),
     findById: vi.fn(async () => [] as RequestRow[]),
   };
   const lobby = { invalidate: vi.fn(async () => undefined) };
@@ -137,6 +152,14 @@ describe('BillingDayRequestsService', () => {
       expect(request.referenceNumber).toBe('6565787');
       expect(ctx.repo.insert).not.toHaveBeenCalled();
       expect(ctx.lobby.invalidate).not.toHaveBeenCalled();
+    });
+
+    it('rejects a reused Idempotency-Key that carries different items (422)', async () => {
+      ctx.repo.findByIdempotencyKey.mockResolvedValueOnce([requestRow()]);
+      await expect(
+        ctx.service.create(CUSTOMER, 'key-1', { items: [{ mortgageId: M1, newBillingDay: 15 }] }),
+      ).rejects.toBeInstanceOf(UnprocessableEntityException);
+      expect(ctx.repo.insert).not.toHaveBeenCalled();
     });
 
     it('two concurrent submissions with the same key: the loser of the race gets the winner’s request', async () => {

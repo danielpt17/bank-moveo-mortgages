@@ -59,7 +59,7 @@
 }
 
 .flow__exit {
-  color: var(--text-primery);
+  color: var(--text-primary);
   font-size: var(--font-size-s);
   align-self: flex-end;
 }
@@ -73,21 +73,6 @@
 @media (min-width: 1024px) {
   .flow__title {
     font-size: var(--font-size-xl);
-  }
-}
-
-/* Subtitle: Figma S on mobile, M on desktop (same pattern as the title) */
-.flow__subtitle {
-  color: var(--text-muted);
-  font-size: var(--font-size-s);
-  font-weight: 400;
-  line-height: 20px;
-}
-
-@media (min-width: 1024px) {
-  .flow__subtitle {
-    font-size: var(--font-size-m);
-    line-height: 24px;
   }
 }
 
@@ -116,15 +101,14 @@
 
   .flow__exit {
     font-size: var(--font-size-s);
-    color: var(--text-primery);
+    color: var(--text-primary);
     grid-column: 2;
     grid-row: 3;
     align-self: end;
   }
 
-  /* Title and subtitle take the full row, so the step row is always row 3 */
-  .flow__title,
-  .flow__subtitle {
+  /* The title takes the full row, so the step row is always row 2 */
+  .flow__title {
     grid-column: 1 / -1;
   }
 
@@ -234,6 +218,14 @@
   display: block;
 }
 
+/* No hover on touch screens: the action's hint stays visible for as long as it is blocked
+   (a tapped checkbox gets focus, so its hint still appears via :focus-within) */
+@media (hover: none) {
+  .action-hint .tip-bubble {
+    display: block;
+  }
+}
+
 /* The bottom-bar action: bubble above the button, centred */
 .action-hint {
   display: inline-flex;
@@ -279,12 +271,16 @@
   text-align: center;
 }
 
+.side-help__hint {
+  text-align: center;
+}
+
 .side-help__steps li {
   display: flex;
   align-items: center;
   gap: var(--space-8);
   padding: var(--space-4) 0;
-  font-size: var(--fs-caption);
+  font-size: var(--font-size-xs);
 }
 
 .side-help__steps svg {

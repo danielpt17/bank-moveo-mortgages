@@ -8,12 +8,12 @@ export function PortfolioSummary({ summary, generatedAt }: { summary: Summary; g
   return (
     <section className="card" aria-labelledby="summary-title">
       <div className="summary__meta">
-        <h2 id="summary-title" className="text-m card__title" style={{ marginBottom: 0 }}>
+        <h2 id="summary-title" className="text-m card__title summary__title">
           <img src="/icon-mortgages.png" alt="" width={38} height={38} />
           משכנתאות
         </h2>
         <span className="text-s summary__updated">
-          <CachedIcon style={{ fontSize: 24,marginLeft:4 }} />
+          <CachedIcon style={{ fontSize: 24 }} />
           <span>
             מעודכן לתאריך: <span className="num">{formatLocalDate(generatedAt)}</span>{' '}
             <span className="num">({formatTime(generatedAt)})</span>

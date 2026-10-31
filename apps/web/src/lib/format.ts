@@ -1,8 +1,3 @@
-const HEBREW_MONTHS = [
-  'ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני',
-  'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר',
-];
-
 /** ₪1,521.24 – the design places the shekel sign before the number. */
 export function formatMoney(amount: number): string {
   const formatted = amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -17,12 +12,6 @@ export function formatPercent(rate: number): string {
 export function formatDate(isoDate: string): string {
   const [year, month, day] = isoDate.slice(0, 10).split('-');
   return `${day}.${month}.${year}`;
-}
-
-/** 2026-12-01 → דצמבר 2026 */
-export function formatMonthYear(isoDate: string): string {
-  const [year, month] = isoDate.slice(0, 10).split('-');
-  return `${HEBREW_MONTHS[Number(month) - 1]} ${year}`;
 }
 
 const two = (n: number) => String(n).padStart(2, '0');

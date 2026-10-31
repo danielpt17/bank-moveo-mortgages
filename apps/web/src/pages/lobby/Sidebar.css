@@ -66,6 +66,11 @@
 
 /* Full-width grey pill */
 .banker__phone {
+  width: 100%;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,8 +81,7 @@
   background: var(--surface);
 }
 
-.banker__phone a {
-  color: inherit;
+.banker__phone .num {
   margin-inline-end: var(--space-4);
   /* number → WhatsApp icon */
 }
