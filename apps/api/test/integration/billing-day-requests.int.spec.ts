@@ -37,6 +37,7 @@ describe('billing-day requests (integration)', () => {
   };
 
   beforeAll(async () => {
+    process.env.DEMO_RESET_TOKEN = 'test-reset-token';
     const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
     app = configureApp(moduleRef.createNestApplication());
     await app.init();
@@ -268,6 +269,25 @@ describe('billing-day requests (integration)', () => {
 
     it('someone else’s request cannot be read by id (404, not 403: existence is not revealed)', async () => {
       await api().get(`/api/v1/billing-day-requests/${other.requestId}`).expect(404);
+    });
+  });
+
+  describe('demo reset', () => {
+    it('refuses without the token (403) and deletes the customer’s requests with it', async () => {
+      await api().post('/api/v1/billing-day-requests').set('Idempotency-Key', randomUUID())
+        .send({ items: [{ mortgageId: m1.id, newBillingDay: otherDay(m1.billingDay) }] }).expect(201);
+
+      await api().post('/api/v1/demo/reset').expect(403);
+      await api().post('/api/v1/demo/reset').set('X-Demo-Reset-Token', 'wrong').expect(403);
+
+      const res = await api().post('/api/v1/demo/reset').set('X-Demo-Reset-Token', 'test-reset-token').expect(200);
+      expect(res.body).toEqual({ deletedRequests: 1 });
+      expect(await db.query('SELECT 1 FROM billing_day_requests WHERE customer_id = $1', [customerId])).toHaveLength(0);
+
+      // the lobby cache was dropped: the mortgage is selectable again
+      const lobby = (await api().get('/api/v1/lobby').expect(200)).body as LobbyDto;
+      const mortgage = lobby.properties.flatMap((p) => p.mortgages).find((m) => m.id === m1.id)!;
+      expect(mortgage.pendingBillingDayRequest).toBeNull();
     });
   });
 
