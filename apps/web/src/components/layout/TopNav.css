@@ -46,7 +46,7 @@
   border-radius: 0;
   background: transparent;
   color: var(--text-primary);
-  font-weight: var(--fw-body);
+  font-weight: 400;
   cursor: pointer;
 }
 
@@ -69,7 +69,7 @@
 /* Below the 1440 container the 12 items no longer fit at 16px; step down instead of scrolling. */
 @media (max-width: 1499px) {
   .nav__link {
-    font-size: var(--fs-caption);
+    font-size: var(--font-size-xs);
     padding: 0 var(--space-8);
   }
 }

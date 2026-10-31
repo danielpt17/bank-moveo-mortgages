@@ -1,4 +1,5 @@
 import './TopNav.css';
+import { Link } from 'react-router';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Star from '@mui/icons-material/Star';
 
@@ -25,28 +26,23 @@ export function TopNav() {
         {ITEMS.map((item) => (
           <li key={item.label}>
             {item.menu ? (
-              <button
-                type="button"
-                className="nav__link"
-                aria-haspopup="menu"
-                aria-expanded={false}
-                aria-current={item.current ? 'page' : undefined}
-              >
+              // Out of scope: the chevron is decorative, there is no menu to announce
+              <button type="button" className="nav__link" aria-current={item.current ? 'page' : undefined}>
                 {item.label}
                 <ExpandMore style={{ fontSize: 20 }} />
               </button>
             ) : (
-              <a href="/" className="nav__link" aria-current={item.current ? 'page' : undefined}>
+              <Link to="/" className="nav__link" aria-current={item.current ? 'page' : undefined}>
                 {item.label}
-              </a>
+              </Link>
             )}
           </li>
         ))}
         <li>
-          <a href="/" className="nav__link">
+          <Link to="/" className="nav__link">
             <Star style={{ fontSize: 20, color: 'var(--secondary-600)' }} />
             מועדפים
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

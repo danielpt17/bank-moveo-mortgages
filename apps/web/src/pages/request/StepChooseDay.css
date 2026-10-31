@@ -32,7 +32,7 @@
 
 
 /* A <legend> is drawn outside the fieldset's grid flow, so the cell gap doesn't reach it */
-legend.days__label {
+.days__cell > legend {
   margin-bottom: var(--space-8);
 }
 

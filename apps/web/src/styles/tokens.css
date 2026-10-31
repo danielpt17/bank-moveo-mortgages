@@ -10,12 +10,10 @@
   --secondary-600: #1b7f8c;
   --secondary-400: #4fa3ad;
   --secondary-200: #8fd0d6;
-  --secondary-100: #e6f4f3;
 
   --accent-600: #f57a67;
   --accent-500: #f68a79;
   --accent-400: #f9a89b;
-  --accent-300: #fbc3ba;
   --accent-200: #fcd6d0;
   --accent-150: #fddfda; /* halo behind the bulb icon */
   --accent-100: #feebe8;
@@ -31,7 +29,6 @@
   --error: #cc0000;
   --error-strong: #b10000;
   --success: #1ba473;
-  --brand-navy: #162f4c;
   --info-bg: #e4f0fa; /* light-blue notice / promo surface */
   --info-border: #c9dced;
 
@@ -50,22 +47,6 @@
   --font-size-l: 24px;
   --font-size-s: 16px;
   --font-size-xs: 14px;
-  --font-size-sm: 16px;
-
-  /* Legacy H1..Caption scale – being replaced by the font-size-* tokens above. */
-  --fs-h1: 40px;
-  --fw-h1: 700;
-  --fs-h2: 28px;
-  --fw-h2: 600;
-  --fs-h3: 20px;
-  --fw-h3: 500;
-  --fs-body: 16px;
-  --fw-body: 400;
-  --fs-caption: 14px;
-  --fw-caption: 400;
-  --fs-small: 12px; /* nav items, chips – not in the tokens frame but used on the screens */
-  --lh-tight: 1.2;
-  --lh-body: 1.5;
 
   --radius-sm: 8px;
   --radius-md: 12px;

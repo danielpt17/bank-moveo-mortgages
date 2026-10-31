@@ -18,7 +18,7 @@ export class Env {
 
   @Type(() => Number)
   @IsInt()
-  @Min(0)
+  @Min(1) // Redis rejects EX 0; a 0 TTL would silently disable the cache
   LOBBY_CACHE_TTL_SECONDS: number = 300;
 
   @IsString()

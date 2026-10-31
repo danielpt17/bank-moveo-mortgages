@@ -30,7 +30,7 @@ test.describe('billing-day change – happy path', () => {
     const next = page.getByRole('button', { name: 'לשלב הבא' });
     await next.click();
     await expect(next).toHaveAttribute('aria-disabled', 'true');
-    await expect(page.getByRole('tooltip')).toContainText('יש לבחור לפחות משכנתה אחת');
+    await expect(page.getByRole('tooltip', { name: /לפחות משכנתה אחת/ })).toBeVisible();
 
     // Pick the first two selectable mortgages
     const boxes = page.getByRole('checkbox').and(page.locator(':not([aria-disabled="true"])'));
@@ -47,7 +47,7 @@ test.describe('billing-day change – happy path', () => {
     const next2 = page.getByRole('button', { name: 'לשלב הבא' });
     await next2.click();
     await expect(next2).toHaveAttribute('aria-disabled', 'true');
-    await expect(page.getByRole('tooltip')).toContainText('יש לבחור מועד חיוב חדש');
+    await expect(page.getByRole('tooltip', { name: /מועד חיוב חדש לכל/ })).toBeVisible();
 
     const groups = page.getByRole('group', { name: /מועד חיוב חדש למשכנתה/ });
     const groupCount = await groups.count();

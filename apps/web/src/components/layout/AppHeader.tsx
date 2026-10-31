@@ -59,14 +59,17 @@ export function AppHeader({
       {/* Mobile (< 1024): account pill, then the bell at the end (left). Lobby: white over the coral wave;
           flow: peach on a white bar (Figma) */}
       <div className="header__mobile">
-        {/* No aria-label: the visible name + account number is the accessible name (axe label-content-name-mismatch) */}
-        <button type="button" className="header__pill text-xs">
-          {variant === 'flow' ? <PersonOutlineOutlined style={{ fontSize: 20, color: 'var(--accent-600)' }} /> : null}
-          <span className="header__pill-text">
-            {name} • <span className="num">{customer?.accountNumber}</span>
-          </span>
-          <ExpandMore style={{ fontSize: 20 }} />
-        </button>
+        {/* No aria-label: the visible name + account number is the accessible name (axe label-content-name-mismatch).
+            Rendered once the customer is known, so the pill never reads as an empty "•". */}
+        {customer ? (
+          <button type="button" className="header__pill text-xs">
+            {variant === 'flow' ? <PersonOutlineOutlined style={{ fontSize: 20, color: 'var(--accent-600)' }} /> : null}
+            <span className="header__pill-text">
+              {name} • <span className="num">{customer.accountNumber}</span>
+            </span>
+            <ExpandMore style={{ fontSize: 20 }} />
+          </button>
+        ) : null}
         <button type="button" className="header__bell" aria-label="התראות">
           <NotificationsOutlined style={{ fontSize: 22 }} />
         </button>
@@ -80,13 +83,13 @@ export function AppHeader({
 
         {variant === 'lobby' ? (
           <>
-            <div className="header__account" aria-label="חשבון פעיל">
+            <div className="header__account">
               <img className="avatar" src="/avatar.png" alt="" width={30} height={30} />
-              <span style={{ width: 276 }}>
+              <span className="header__account-text">
                 <span className="header__account-label">חשבון פרטי</span>
                 {name} • <span className="num">{customer?.accountNumber}</span>
               </span>
-              <ExpandMore style={{ fontSize: 18, marginRight: 20 }} />
+              <ExpandMore style={{ fontSize: 18 }} className="header__account-chevron" />
             </div>
             <div className="header__tools">
               {TOOLS.map((t) => (

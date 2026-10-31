@@ -27,12 +27,3 @@ export function ErrorState({ error, onRetry }: { error: unknown; onRetry?: () =>
     </div>
   );
 }
-
-export function InlineError({ id, children }: { id?: string; children: React.ReactNode }) {
-  return (
-    <p id={id} className="field-error" role="alert">
-      <WarningAmberOutlined style={{ fontSize: 16 }} />
-      <span>{children}</span>
-    </p>
-  );
-}

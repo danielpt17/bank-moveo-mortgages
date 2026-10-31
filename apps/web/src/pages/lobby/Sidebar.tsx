@@ -65,13 +65,11 @@ export function BankerCard() {
         </div>
       </div>
 
-      <p className="banker__phone text-s">
-        וואטסאפ:{' '}
-        <a href="https://wa.me/97276804886" className="num">
-          076-8048860
-        </a>
+      {/* Out of scope: shows the number like the design, opens nothing */}
+      <button type="button" className="banker__phone text-s">
+        וואטסאפ: <span className="num">076-8048860</span>
         <WhatsApp style={{ fontSize: 16, color: 'var(--success)' }} />
-      </p>
+      </button>
 
       <div className="banker__updates">
         <div className="side-tabs" role="tablist" aria-label="עדכונים">
@@ -83,14 +81,26 @@ export function BankerCard() {
               id={`banker-tab-${t.key}`}
               className="text-s"
               aria-selected={tab === t.key}
+              aria-controls={`banker-panel-${t.key}`}
+              tabIndex={tab === t.key ? 0 : -1}
               onClick={() => setTab(t.key)}
+              onKeyDown={(e) => {
+                const idx = UPDATE_TABS.findIndex((x) => x.key === tab);
+                // RTL: ArrowLeft moves to the next tab visually.
+                const next = e.key === 'ArrowLeft' ? idx + 1 : e.key === 'ArrowRight' ? idx - 1 : null;
+                if (next === null) return;
+                e.preventDefault();
+                const target = UPDATE_TABS[(next + UPDATE_TABS.length) % UPDATE_TABS.length]!;
+                setTab(target.key);
+                document.getElementById(`banker-tab-${target.key}`)?.focus();
+              }}
             >
               {t.label}
             </button>
           ))}
         </div>
 
-        <div role="tabpanel" aria-labelledby={`banker-tab-${tab}`}>
+        <div role="tabpanel" id={`banker-panel-${tab}`} aria-labelledby={`banker-tab-${tab}`}>
         <ul className="updates text-xs">
           {UPDATE_TABS.find((t) => t.key === tab)!.items.map((item) => (
             <li key={item.text}>
@@ -128,10 +138,12 @@ export function TipCard() {
           <img src="/icon-bulb.png" alt="" width={18} height={18} />
           מידע שכדאי לדעת
         </h2>
-        <span className="tip__pager text-xs" aria-label="פריט 1 מתוך 3">
-          <ChevronRight style={{ fontSize: 16 }} />
-          <span className="num">1/3</span>
-          <ChevronLeft style={{ fontSize: 16 }} />
+        <span className="tip__pager text-xs">
+          <ChevronRight style={{ fontSize: 16 }} aria-hidden="true" />
+          <span className="visually-hidden">פריט </span>
+          <span className="num" aria-hidden="true">1/3</span>
+          <span className="visually-hidden">1 מתוך 3</span>
+          <ChevronLeft style={{ fontSize: 16 }} aria-hidden="true" />
         </span>
       </div>
       <div className="tip__body">
