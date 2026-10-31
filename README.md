@@ -8,8 +8,9 @@ Home assignment for a Full-Stack Engineer role: the mortgage **lobby** and one r
 - Tests: Vitest (API rules, services, DTOs; web wizard logic and step 1), an API integration suite
   against real Postgres + Redis, and a Playwright happy path with axe on desktop and 320px.
 
-**Live:** web `<vercel-url>` · API `<railway-url>/api/v1` · docs `<railway-url>/api/docs`
-*(filled in after deployment)*
+**Live:** web https://bank-moveo-mortgages.vercel.app · API https://bank-moveo-api.onrender.com/api/v1 ·
+docs https://bank-moveo-api.onrender.com/api/docs
+*(API on Render's free tier: the first request after 15 idle minutes takes ~30 s to wake.)*
 
 ---
 
@@ -230,11 +231,11 @@ Indexes on every foreign key used by the lobby and request queries.
 
 ## Deployment
 
-- **API**: Railway (or any Docker host) with Postgres and Redis add-ons. Set `DATABASE_URL`,
-  `REDIS_URL`, `CORS_ORIGINS=<web url>`, `BUSINESS_TIMEZONE=Asia/Jerusalem`. The image runs
-  migrations and the seed on start.
-- **Web**: Vercel, root `apps/web`, build `pnpm build`, output `dist`, env
-  `VITE_API_BASE_URL=<api url>/api/v1`. `vercel.json` adds the SPA fallback.
+Free tier, no card: **API on Render** (the same Docker image as compose, from `render.yaml`),
+**Postgres on Neon**, **Redis on Upstash**, **web on Vercel** (root `apps/web`, `vercel.json`).
+Pushing to `main` redeploys both. The full runbook, including how to reset the demo data, is in
+[DEPLOY.md](DEPLOY.md). The Playwright e2e passes against production:
+`E2E_BASE_URL=https://bank-moveo-mortgages.vercel.app pnpm e2e`.
 
 ## How AI tools were used
 
