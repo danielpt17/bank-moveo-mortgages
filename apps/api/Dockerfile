@@ -27,7 +27,8 @@ COPY --from=build --chown=app:app /app/apps/api/dist ./dist
 COPY --from=build --chown=app:app /app/apps/api/migrations ./migrations
 USER app
 EXPOSE 3000
+# 127.0.0.1, not localhost: localhost resolves to ::1 in alpine and node listens on 0.0.0.0
 HEALTHCHECK --interval=15s --timeout=3s --start-period=20s \
-  CMD wget -qO- http://localhost:${PORT:-3000}/api/v1/health || exit 1
+  CMD wget -qO- http://127.0.0.1:${PORT:-3000}/api/v1/health || exit 1
 # Run pending migrations and the idempotent seed, then start the API.
 CMD ["sh", "-c", "node dist/scripts/migrate.js && node dist/scripts/seed.js && node dist/src/main.js"]
